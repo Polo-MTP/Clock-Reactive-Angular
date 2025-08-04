@@ -1,0 +1,14 @@
+<div class="app-container">
+  <h1>Reloj Reactivo Angular</h1>
+  
+  <div class="main-content" *ngIf="!clockService.clock()">
+    <app-clock-form></app-clock-form>
+  </div>
+  
+  <div class="clock-section" *ngIf="clockService.clock()">
+    <app-clock></app-clock>
+    <app-clock-controls></app-clock-controls>
+  </div>
+</div>
+
+<router-outlet />
