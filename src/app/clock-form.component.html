@@ -1,0 +1,47 @@
+<div class="form-container">
+  <h2>Crear Reloj</h2>
+  <form (ngSubmit)="onSubmit()" #clockForm="ngForm">
+    <div class="form-group">
+      <label for="hours">Horas:</label>
+      <input 
+        type="number" 
+        id="hours" 
+        name="hours"
+        [(ngModel)]="hours" 
+        min="0" 
+        max="23" 
+        required>
+    </div>
+    
+    <div class="form-group">
+      <label for="minutes">Minutos:</label>
+      <input 
+        type="number" 
+        id="minutes" 
+        name="minutes"
+        [(ngModel)]="minutes" 
+        min="0" 
+        max="59" 
+        required>
+    </div>
+    
+    <div class="form-group">
+      <label for="seconds">Segundos:</label>
+      <input 
+        type="number" 
+        id="seconds" 
+        name="seconds"
+        [(ngModel)]="seconds" 
+        min="0" 
+        max="59" 
+        required>
+    </div>
+    
+    <button 
+      type="submit" 
+      [disabled]="!clockForm.valid"
+      class="submit-btn">
+      Crear Reloj
+    </button>
+  </form>
+</div>

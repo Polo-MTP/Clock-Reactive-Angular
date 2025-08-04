@@ -1,0 +1,58 @@
+<div class="clock-container" *ngIf="clockData">
+  <div class="digital-display" [style.background-color]="clockColors().labelBackground">
+    {{ clockService.getCurrentTimeString(clockData.id) }}
+  </div>
+  
+  <svg class="analog-clock" width="300" height="300" viewBox="0 0 300 300">
+    <!-- Clock background -->
+    <circle cx="150" cy="150" r="145" 
+            [attr.fill]="clockColors().background" 
+            stroke="#ccc" stroke-width="2"/>
+    
+    <!-- Hour markers -->
+    <g [attr.stroke]="clockColors().ticks" stroke-width="3">
+      <line *ngFor="let hour of hours" 
+            [attr.x1]="hour.x1" [attr.y1]="hour.y1" 
+            [attr.x2]="hour.x2" [attr.y2]="hour.y2"/>
+    </g>
+    
+    <!-- Minute markers -->
+    <g [attr.stroke]="clockColors().ticks" stroke-width="1">
+      <line *ngFor="let minute of minutes" 
+            [attr.x1]="minute.x1" [attr.y1]="minute.y1" 
+            [attr.x2]="minute.x2" [attr.y2]="minute.y2"/>
+    </g>
+    
+    <!-- Numbers -->
+    <g [attr.fill]="clockColors().numbers" font-family="Arial" font-size="20" text-anchor="middle">
+      <text *ngFor="let number of numbers" 
+            [attr.x]="number.x" [attr.y]="number.y" dominant-baseline="middle">
+        {{ number.value }}
+      </text>
+    </g>
+    
+    <!-- Clock hands -->
+    <g [attr.stroke]="clockColors().hands" stroke-linecap="round">
+      <!-- Hour hand -->
+      <line x1="150" y1="150" 
+            [attr.x2]="hourHandPosition().x" 
+            [attr.y2]="hourHandPosition().y" 
+            stroke-width="6"/>
+      
+      <!-- Minute hand -->
+      <line x1="150" y1="150" 
+            [attr.x2]="minuteHandPosition().x" 
+            [attr.y2]="minuteHandPosition().y" 
+            stroke-width="4"/>
+      
+      <!-- Second hand -->
+      <line x1="150" y1="150" 
+            [attr.x2]="secondHandPosition().x" 
+            [attr.y2]="secondHandPosition().y" 
+            stroke="#ff0000" stroke-width="2"/>
+    </g>
+    
+    <!-- Center dot -->
+    <circle cx="150" cy="150" r="8" [attr.fill]="clockColors().hands"/>
+  </svg>
+</div>

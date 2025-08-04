@@ -1,0 +1,83 @@
+<div class="controls-container">
+  <div class="button-group">
+    <button 
+      class="control-btn edit-btn" 
+      (click)="toggleColorEditor()">
+      ✏️ Editar Colores
+    </button>
+    
+    <button 
+      class="control-btn time-btn" 
+      (click)="toggleTimeControls()">
+      👁️ Controlar Tiempo
+    </button>
+  </div>
+  
+  <!-- Modal de Edición de Colores -->
+  <div class="modal" *ngIf="showColorEditor()" (click)="closeModal($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Personalizar Colores del Reloj</h3>
+      
+      <div class="color-inputs">
+        <div class="color-group">
+          <label>Manecillas:</label>
+          <input type="color" [value]="currentColors.hands" (input)="updateColor('hands', $event)">
+        </div>
+        
+        <div class="color-group">
+          <label>Números:</label>
+          <input type="color" [value]="currentColors.numbers" (input)="updateColor('numbers', $event)">
+        </div>
+        
+        <div class="color-group">
+          <label>Fondo del Reloj:</label>
+          <input type="color" [value]="currentColors.background" (input)="updateColor('background', $event)">
+        </div>
+        
+        <div class="color-group">
+          <label>Rayitas/Marcas:</label>
+          <input type="color" [value]="currentColors.ticks" (input)="updateColor('ticks', $event)">
+        </div>
+        
+        
+        <div class="color-group">
+          <label>Fondo Hora Digital:</label>
+          <input type="color" [value]="currentColors.labelBackground" (input)="updateColor('labelBackground', $event)">
+        </div>
+      </div>
+      
+      <div class="modal-buttons">
+        <button class="close-btn" (click)="closeColorEditor()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Control de Tiempo -->
+  <div class="modal" *ngIf="showTimeControls()" (click)="closeModal($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Control de Tiempo</h3>
+      
+      <div class="time-display">
+        <div class="current-time">
+          Hora Actual: {{ clockService.getCurrentTimeString(clockId) }}
+        </div>
+      </div>
+      
+      <div class="time-controls">
+        <div class="control-row">
+          <button class="time-control-btn" (click)="adjustTime(-1)">
+            ⏪ Atrasar 1 Segundo
+          </button>
+          <span class="separator">|</span>
+          <button class="time-control-btn" (click)="adjustTime(1)">
+            Adelantar 1 Segundo ⏩
+          </button>
+        </div>
+      </div>
+      
+      <div class="modal-buttons">
+        <button class="close-btn" (click)="closeTimeControls()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
